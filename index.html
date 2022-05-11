@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+<style>
+    :root {
+  box-sizing: border-box;
+}
+
+html,body,
+* {
+font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  height: 100vh;
+}
+
+.summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 3px solid blanchedalmond;
+  width: 400px;
+  height: 400px;
+  text-align: center;
+}
+
+.games {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option {
+  width: 30%;
+  margin: 10px 15px;
+  padding: 25px;
+  text-align: center;
+  font-size: 40px;
+  background-color: bisque;
+  border-radius: 30px ;
+}
+
+.option:hover {
+  cursor: pointer;
+  background-color: burlywood;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+  transform: scale(105%);
+  -webkit-transform: scale(105%);
+  -moz-transform: scale(105%);
+  -ms-transform: scale(105%);
+  -o-transform: scale(105%);
+  -webkit-transition: cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+  -moz-transition: cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+  -ms-transition: cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+  -o-transition: cubic-bezier(0.215, 0.61, 0.355, 1) ease-in-out;
+}
+
+</style>
+    <title>Dea Mini Games</title>
+</head>
+
+<body>
+
+
+    <div id="app">
+        <div class="summary">
+            <h1 class="title">Suwit Dulu</h1>
+            <h2 class="subtitle">Kalo Kalian Gabut Yakan</h2>
+            <br />
+            <h1 id="inGame"></h1>
+            <h3 id="result"></h3>
+        </div>
+
+
+
+<center>
+            <div class="games">
+            <div class="option" onclick="pickOption('🖐')">🖐</div>
+            <div class="option" onclick="pickOption('✌')">✌</div>
+            <div class="option" onclick="pickOption('✊')">✊</div>
+        </div>
+</center>
+    </div>
+
+    <script>
+        class Start {
+            constructor() {
+                this.playerName = "Kamu"
+                this.botName = "Arif Alexander"
+                this.playerOption;
+                this.botOption;
+                this.winner = ""
+            }
+
+            get getBotOption() {
+                return this.botOption;
+            }
+
+            set setBotOption(option) {
+                this.botOption = option;
+            }
+
+            get getPlayerOption() {
+                return this.playerOption
+            }
+
+            set setPlayerOption(option) {
+                this.playerOption = option;
+            }
+
+            botBrain() {
+                const option = ["🖐", "✌", "✊"];
+                const bot = option[Math.floor(Math.random() * option.length)];
+                return bot;
+            }
+
+            winCalculation() {
+                if (this.botOption == "🖐" && this.playerOption == "✌") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "🖐" && this.playerOption == "✊") {
+                    return this.winner = this.botName;
+                } else if (this.botOption == "✌" && this.playerOption == "🖐") {
+                    return this.winner = this.botName;
+                } else if (this.botOption == "✌" && this.playerOption == "✊") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "✊" && this.playerOption == "🖐") {
+                    return this.winner = this.playerName
+                } else if (this.botOption == "✊" && this.playerOption == "✌") {
+                    return this.winner = this.botName;
+                } else {
+                    return this.winner = "SERI"
+                }
+            }
+
+            matchResult() {
+                if (this.winner != "SERI") {
+                    return `${this.winner} MENANG!`;
+                } else {
+                    return `WAAA ${this.winner}, Seri Kita Bos 🤪`;
+                }
+            }
+        }
+
+        function pickOption(params) {
+            const start = new Start();
+            start.setPlayerOption = params;
+            start.setBotOption = start.botBrain();
+            start.winCalculation();
+
+            const inGame = document.getElementById("inGame");
+            const result = document.getElementById("result");
+
+            inGame.textContent = "..."
+            result.textContent = "..."
+
+            setTimeout(() => {
+                inGame.textContent = `${start.getPlayerOption} VS ${start.getBotOption}`
+                result.textContent = start.matchResult();
+            }, 1500);
+
+        }
+    </script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+</html>
